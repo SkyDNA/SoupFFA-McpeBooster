@@ -22,8 +22,8 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->getLogger()->info($this->prefix . " by McpeBooster!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		@mkdir($this->getDataFolder());
-        $config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
-        if(empty($config->get("arena"))) {
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
+		if(empty($config->get("arena"))) {
 			$config->set("arena", "debug123");
 			$config->save();
 		}
@@ -42,7 +42,7 @@ class SoupFFA extends PluginBase implements Listener{
 	#Events
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
-	    $item = $event->getItem();
+		$item = $event->getItem();
 		$block = $event->getBlock();
 		if($item->getId() === Item::MUSHROOM_STEW){
 			$player->getInventory()->removeItem($item);
@@ -51,13 +51,13 @@ class SoupFFA extends PluginBase implements Listener{
 			return;
 		}elseif($player->getLevel()->getTile($block) instanceof Sign) {
 			$tile = $player->getLevel()->getTile($block);
-            $text = $tile->getText();
+			$text = $tile->getText();
 			if ($text[0] == $this->prefix) {
-                if($text[2] == "§2Join"){
+				if($text[2] == "§2Join"){
 					$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
 					$arenaname = $config->get("arena");
 					$arenalevel = $this->getServer()->getLevelByName($arenaname);
-	                $arenaspawn = $arenalevel->getSafeSpawn();
+					$arenaspawn = $arenalevel->getSafeSpawn();
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
 					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
@@ -75,7 +75,7 @@ class SoupFFA extends PluginBase implements Listener{
 		if($event->getPlayer()->isOp()){
 			if($event->getLine(0) == "SoupFFA"){
 				$event->setLine(0, $this->prefix);
-                $event->setLine(2, "§2Join");
+				$event->setLine(2, "§2Join");
 			}
 		}
 	}
