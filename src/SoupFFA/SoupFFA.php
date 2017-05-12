@@ -13,6 +13,8 @@ use pocketmine\tile\Sign;
 
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\block\SignChangeEvent;
+use pocketmine\event\entity\EntityDamageEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
 
 class SoupFFA extends PluginBase implements Listener{
 	
@@ -86,6 +88,58 @@ class SoupFFA extends PluginBase implements Listener{
 		}
 	}
 	
+	public function onDamage(EntityDamageEvent $event) {
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
+		$entity = $event->getEntity();
+		$cause = $event->getCause();
+		
+		if ($cause == EntityDamageEvent::CAUSE_ENTITY_ATTACK) {
+			if ($event instanceof EntityDamageByEntityEvent) {
+				$killer = $event->getDamager();
+				$welt = $killer->getLevel()->getFolderName();
+				$arenaname = $config->get("arena");
+				if($arenaname == $welt){
+					if ($killer instanceof Player) {
+					$message = $killer->getName();
+					$x = $entity->getX();
+					$y = $entity->getY();
+					$z = $entity->getZ();
+					
+					$xx = $entity->getLevel()->getSafeSpawn()->getX();
+					$yy = $entity->getLevel()->getSafeSpawn()->getY();
+					$zz = $entity->getLevel()->getSafeSpawn()->getZ();
+					
+					if (abs($xx - $x) < 7 && abs($yy - $y) < 7 && abs($zz - $z) < 7){
+						
+						$event->setCancelled(true);
+						
+						$killer->sendMessage($this->prefix . "PvP is only allowed further away from the spawn!");
+						return;
+					}elseif ($event->getDamage() >= $entity->getHealth()) {
+						$event->setCancelled(true);
+						
+						$arenalevel = $this->getServer()->getLevelByName($arenaname);
+						$arenaspawn = $arenalevel->getSafeSpawn();
+						$entity->teleport($arenaspawn, 0, 0);
+						$level->loadChunk($spawn->getX(), $spawn->getZ());
+						$entity->teleport($spawn, 0, 0);
+						
+						$entity->addTitle("§4Death");
+						
+						$this->SoupItems($entity);
+						
+						$entity->sendMessage($this->prefix . C::GRAY . "The Player " . C::RED . $killer->getName() . C::GRAY . " has killed you!");
+						$killer->sendMessage($this->prefix . C::GRAY . "You have killed " . C::RED . $entity->getName() . C::GRAY . " !");
+						return;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
+	
 	public function SoupItems($player){
 		$player->getInventory()->clearAll();
 		$slots = array(1,2,3,4,5,6,7,8);
@@ -93,5 +147,6 @@ class SoupFFA extends PluginBase implements Listener{
 		    $player->getInventory()->setItem($s, Item::get(282));
 		}
 		$player->getInventory()->setItem(0, Item::get(267));
+		$player->setHealth(20);
 	}
 }
