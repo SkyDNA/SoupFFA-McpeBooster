@@ -61,6 +61,7 @@ class SoupFFA extends PluginBase implements Listener{
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
 					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
+					$player->addTitle("§6|§2SoupFFA§6|", "§8by McpeBooster");
 					return;
 				}
 				else{
@@ -72,18 +73,22 @@ class SoupFFA extends PluginBase implements Listener{
 	}
 	
 	public function onSignCreate(SignChangeEvent $event){
-		if($event->getPlayer()->isOp()){
-			if($event->getLine(0) == "SoupFFA"){
+		$player = $event->getPlayer();
+		if($event->getLine(0) == "SoupFFA"){
+			if($player->isOp()){
 				$event->setLine(0, $this->prefix);
 				$event->setLine(2, "§2Join");
+				$player->sendMessage("JoinSign set!");
+				return;
 			}
+			$player->sendMessage("You do not have the Permission to do that!");
+			return;
 		}
 	}
 	
-	#Eigene
 	public function SoupItems($player){
 		$player->getInventory()->clearAll();
-		$slots = array(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34);
+		$slots = array(1,2,3,4,5,6,7,8);
 		foreach($slots as $s){
 		    $player->getInventory()->setItem($s, Item::get(282));
 		}
