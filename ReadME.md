@@ -1,5 +1,9 @@
 Pocketmine SoupFFA Plugin by @McpeBooster
 
+[![Poggit-CI](https://poggit.pmmp.io/ci.badge/McpeBooster/SoupFFA/SoupFFA)](https://poggit.pmmp.io/ci/McpeBooster/SoupFFA/SoupFFA)
+
+
+
 Kontaktdaten:
 
 Twitter: https://twitter.com/McpeBooster
