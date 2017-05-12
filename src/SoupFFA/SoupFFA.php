@@ -141,12 +141,20 @@ class SoupFFA extends PluginBase implements Listener{
 	
 	
 	public function SoupItems($player){
-		$player->getInventory()->clearAll();
+		$inv = $player->getInventory();
+		$inv->clearAll();
 		$slots = array(1,2,3,4,5,6,7,8);
 		foreach($slots as $s){
-		    $player->getInventory()->setItem($s, Item::get(282));
+		    $inv->setItem($s, Item::get(282));
 		}
-		$player->getInventory()->setItem(0, Item::get(267));
+		$inv->setItem(0, Item::get(267));
+		
+		$inv->setHelmet(Item::get(298));
+		$inv->setChestplate(Item::get(303));
+		$inv->setLeggings(Item::get(300));
+		$inv->setBoots(Item::get(301));
+		$inv->sendArmorContents($player);
+
 		$player->setHealth(20);
 	}
 }
