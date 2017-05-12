@@ -121,10 +121,10 @@ class SoupFFA extends PluginBase implements Listener{
 						$arenalevel = $this->getServer()->getLevelByName($arenaname);
 						$arenaspawn = $arenalevel->getSafeSpawn();
 						$entity->teleport($arenaspawn, 0, 0);
-						$level->loadChunk($spawn->getX(), $spawn->getZ());
-						$entity->teleport($spawn, 0, 0);
+						$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
+						$entity->teleport($arenaspawn, 0, 0);
 						
-						$entity->addTitle("§4Death");
+						$entity->addTitle("§4Death", "");
 						
 						$this->SoupItems($entity);
 						
