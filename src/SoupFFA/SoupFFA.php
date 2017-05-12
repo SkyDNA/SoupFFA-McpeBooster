@@ -5,7 +5,6 @@ namespace SoupFFA;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\event\Listener;
-use pocketmine\command\CommandMap;
 use pocketmine\utils\{Textformat as C, Config};
 use pocketmine\Player;
 use pocketmine\item\Item;
@@ -35,6 +34,7 @@ class SoupFFA extends PluginBase implements Listener{
 			$this->getLogger()->emergency(" Please change the SoupFFA world in the config.yml!!!");
 			$this->getLogger()->emergency("###############################################");
 			$this->getServer()->getPluginManager()->disablePlugin($plugin);
+			return;
 		}
 		
 		$this->getServer()->loadLevel($config->get("arena"));
@@ -60,13 +60,13 @@ class SoupFFA extends PluginBase implements Listener{
 					$arenaname = $config->get("arena");
 					$arenalevel = $this->getServer()->getLevelByName($arenaname);
 					$arenaspawn = $arenalevel->getSafeSpawn();
+					$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
 					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
 					$player->addTitle("§6|§2SoupFFA§6|", "§8by McpeBooster");
 					return;
-				}
-				else{
+				}else{
 					$player->sendMessage( $this->prefix ." §c you can not join SoupFFA!");
 					return;
 				}
@@ -120,8 +120,6 @@ class SoupFFA extends PluginBase implements Listener{
 						
 						$arenalevel = $this->getServer()->getLevelByName($arenaname);
 						$arenaspawn = $arenalevel->getSafeSpawn();
-						$entity->teleport($arenaspawn, 0, 0);
-						$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
 						$entity->teleport($arenaspawn, 0, 0);
 						
 						$entity->addTitle("§4Death", "");
