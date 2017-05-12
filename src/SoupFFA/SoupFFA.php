@@ -30,7 +30,7 @@ class SoupFFA extends PluginBase implements Listener{
 		if($config->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("###############################################");
-			$this->getLogger()->emergency(" Bitte ändere in der Config den Arena Namen!!!");
+			$this->getLogger()->emergency(" Please change the SoupFFA world in the config.yml!!!");
 			$this->getLogger()->emergency("###############################################");
 			$this->getServer()->getPluginManager()->disablePlugin($plugin);
 		}
@@ -53,18 +53,18 @@ class SoupFFA extends PluginBase implements Listener{
 			$tile = $player->getLevel()->getTile($block);
             $text = $tile->getText();
 			if ($text[0] == $this->prefix) {
-                if($text[2] == "§2Beitreten"){
+                if($text[2] == "§2Join"){
 					$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
 					$arenaname = $config->get("arena");
 					$arenalevel = $this->getServer()->getLevelByName($arenaname);
 	                $arenaspawn = $arenalevel->getSafeSpawn();
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
-					$player->sendMessage( $this->prefix ." du hast SoupFFA betreten!");
+					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
 					return;
 				}
 				else{
-					$player->sendMessage( $this->prefix ." §cdu kannst SoupFFA nicht betreten!");
+					$player->sendMessage( $this->prefix ." §c you can not join SoupFFA!");
 					return;
 				}
 			}
@@ -75,7 +75,7 @@ class SoupFFA extends PluginBase implements Listener{
 		if($event->getPlayer()->isOp()){
 			if($event->getLine(0) == "SoupFFA"){
 				$event->setLine(0, $this->prefix);
-                $event->setLine(2, "§2Beitreten");
+                $event->setLine(2, "§2Join");
 			}
 		}
 	}
