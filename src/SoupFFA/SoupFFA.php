@@ -40,6 +40,14 @@ class SoupFFA extends PluginBase implements Listener{
 			$config->set("boots", 301);
 			$config->save();
 		}
+		if(empty($config->get("vipsword"))) {
+			$config->set("vipsword", 267);
+			$config->set("viphelmet", 302);
+			$config->set("vipchestplate", 303);
+			$config->set("vipleggings", 304);
+			$config->set("vipboots", 305);
+			$config->save();
+		}
 		if($config->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("###############################################");
@@ -61,7 +69,8 @@ class SoupFFA extends PluginBase implements Listener{
 		if($item->getId() === Item::MUSHROOM_STEW){
 			$player->getInventory()->removeItem($item);
 			$player->setHealth($player->getHealth() + 5);
-			$player->sendTip("§cYou are healed!");
+			$player->setFood(20);
+			$player->sendTip("§cYou have been healed!");
 			return;
 		}elseif($player->getLevel()->getTile($block) instanceof Sign) {
 			$tile = $player->getLevel()->getTile($block);
@@ -158,13 +167,26 @@ class SoupFFA extends PluginBase implements Listener{
 	
 	
 	public function SoupItems($player){
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
+		  
 		$inv = $player->getInventory();
 		$inv->clearAll();
 		$slots = array(1,2,3,4,5,6,7,8);
 		foreach($slots as $s){
 		    $inv->setItem($s, Item::get(282));
 		}
+		
+		if($player->hasPermission("soupffa.vip")){
+			$this->vipPlayer($player);
+		}else{
+			$this->normalPlayer($player);
+		}
+		$player->setFood(20);
+		$player->setHealth(20);
+	}
+	
+	public function normalPlayer($player){
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
+		$inv = $player->getInventory();
 		
 		$sword = $config->get("sword");
 		
@@ -180,9 +202,26 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv->setLeggings(Item::get($leggings));
 		$inv->setBoots(Item::get($boots));
 		$inv->sendArmorContents($player);
+	}
+	
+	public function vipPlayer($player){
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
+		$inv = $player->getInventory();
 		
-		$player->setFood(20);
-		$player->setHealth(20);
+		$sword = $config->get("vipsword");
+		
+		$inv->setItem(0, Item::get($sword));
+		
+		$helmet = $config->get("viphelmet");
+		$chestplate = $config->get("vipchestplate");
+		$leggings = $config->get("vipleggings");
+		$boots = $config->get("vipboots");
+		
+		$inv->setHelmet(Item::get($helmet));
+		$inv->setChestplate(Item::get($chestplate));
+		$inv->setLeggings(Item::get($leggings));
+		$inv->setBoots(Item::get($boots));
+		$inv->sendArmorContents($player);
 	}
 	
 	public function Title(Player $player, string $line1, string $line2){

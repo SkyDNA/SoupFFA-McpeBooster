@@ -19,6 +19,12 @@ Click on the Sign and play with you friends :D
 
 <br>
 <br>
+
+When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
+
+<br>
+<br>
+
 YouTube Video:
 
 https://youtu.be/iQ-GgxrWYQk
