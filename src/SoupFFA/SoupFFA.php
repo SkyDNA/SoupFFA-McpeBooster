@@ -73,7 +73,7 @@ class SoupFFA extends PluginBase implements Listener{
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
 					$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
-					$player->addTitle("§6|§2SoupFFA§6|", "§8by McpeBooster");
+					$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
 					return;
 			}
 			$player->sendMessage( $this->prefix ." §c You can not join SoupFFA!");
@@ -131,8 +131,8 @@ class SoupFFA extends PluginBase implements Listener{
 						$arenaspawn = $arenalevel->getSafeSpawn();
 						$entity->teleport($arenaspawn, 0, 0);
 						
-						$entity->addTitle("§4Death", $killer->getName());
-						$killer->addTitle("§2Kill", $entity->getName());
+						$this->Title($entity, "§4Death", $killer->getName());
+						$this->Title($killer, "§2Kill", $entity->getName());
 						
 						$this->SoupItems($entity);
 						$this->SoupItems($killer);
@@ -166,5 +166,15 @@ class SoupFFA extends PluginBase implements Listener{
 		
 		$player->setFood(20);
 		$player->setHealth(20);
+	}
+	
+	public function Title(Player $player, string $line1, string $line2){
+		if($this->getServer()->getName() == "PocketMine-MP"){
+			$player->addTitle($line1, $line2);
+			return;
+		}else{
+			$player->sendTitle($line1, $line2);
+			return;
+		}
 	}
 }

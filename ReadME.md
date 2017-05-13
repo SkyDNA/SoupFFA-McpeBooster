@@ -4,9 +4,7 @@ Pocketmine SoupFFA Plugin by @McpeBooster
 
 <br>
 
-!!!This Plugin does not support Pocketmine spoons like Tesseract!!!
-
-If you use a spoon you must change every "addTitle()" to "sendTitle()"
+This Plugin supportsthe original PocketMine-MP/pmmp and Pocketmine spoons like Tesseract
 
 <br>
 <br>
