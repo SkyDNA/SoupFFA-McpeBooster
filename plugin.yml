@@ -1,6 +1,6 @@
 name: SoupFFA
 main: SoupFFA\SoupFFA
-version: 1.2.0
+version: 1.3.0
 api: [3.0.0-ALPHA5, 2.0.0, 1.12.0]
 author: McpeBooster
 website: Twitter.com/McpeBooster
