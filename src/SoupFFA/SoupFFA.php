@@ -10,6 +10,9 @@ use pocketmine\Player;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
 
+use pocketmine\command\Command;
+use pocketmine\command\CommandSender;
+
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\block\SignChangeEvent;
 use pocketmine\event\entity\EntityDamageEvent;
@@ -238,16 +241,16 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
 		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
 	}
-	/*
+	
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
-		if($args[0] == "soupffa"){
+		if($cmd->getName() == "soupffa"){
 			if($sender instanceof Player){
-				$sender = $player;
+				$player = $sender;
 				$this->ArenaJoin($player);
 				return;
 			}else{
 				$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
 			}
 		}
-	}*/
+	}
 }
