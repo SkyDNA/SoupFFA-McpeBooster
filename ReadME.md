@@ -4,7 +4,7 @@ Pocketmine SoupFFA Plugin by @McpeBooster
 
 <br>
 
-This Plugin supportsthe original PocketMine-MP/pmmp and Pocketmine spoons like Tesseract
+This Plugin supports now the original PocketMine-MP/pmmp and Pocketmine spoons like Tesseract
 
 <br>
 <br>
