@@ -50,9 +50,9 @@ class SoupFFA extends PluginBase implements Listener{
 		}
 		if($config->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
-			$this->getLogger()->emergency("###############################################");
+			$this->getLogger()->emergency("######################################################");
 			$this->getLogger()->emergency(" Please change the SoupFFA world in the config.yml!!!");
-			$this->getLogger()->emergency("###############################################");
+			$this->getLogger()->emergency("######################################################");
 			$this->getServer()->getPluginManager()->disablePlugin($plugin);
 			return;
 		}
@@ -77,23 +77,10 @@ class SoupFFA extends PluginBase implements Listener{
 			$text = $tile->getText();
 			if ($text[0] == $this->prefix) {
 				if($text[2] == "§2Join"){
-					$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
-					$arenaname = $config->get("arena");
-					
-					if(!$this->getServer()->isLevelLoaded($arenaname))
-						$this->getServer()->loadLevel($arenaname);
-					}
-					
-					$arenalevel = $this->getServer()->getLevelByName($arenaname);
-					$arenaspawn = $arenalevel->getSafeSpawn();
-					$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
-					$player->teleport($arenaspawn, 0, 0);
-					$this->SoupItems($player);
-					$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
-					$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
+					$this->ArenaJoin($player);
 					return;
 			}
-			$player->sendMessage( $this->prefix ." §c You can not join SoupFFA!");
+			$player->sendMessage( $this->prefix ." §cYou can not join SoupFFA!");
 			return;
 		}
 	}
@@ -104,7 +91,7 @@ class SoupFFA extends PluginBase implements Listener{
 			if($player->isOp()){
 				$event->setLine(0, $this->prefix);
 				$event->setLine(2, "§2Join");
-				$player->sendMessage("§8JoinSign set!");
+				$player->sendMessage($this->prefix. " §8JoinSign set!");
 				return;
 			}
 			$player->sendMessage($this->prefix. " §cYou do not have the Permission to do that!");
@@ -129,13 +116,13 @@ class SoupFFA extends PluginBase implements Listener{
 					$y = $entity->getY();
 					$z = $entity->getZ();
 					
-					$xx = $entity->getLevel()->getSafeSpawn()->getX();
-					$yy = $entity->getLevel()->getSafeSpawn()->getY();
-					$zz = $entity->getLevel()->getSafeSpawn()->getZ();
+					$sx = $entity->getLevel()->getSafeSpawn()->getX();
+					$sy = $entity->getLevel()->getSafeSpawn()->getY();
+					$sz = $entity->getLevel()->getSafeSpawn()->getZ();
 					
-					$sp = $config->get("spawnprotection");
+					$cp = $config->get("spawnprotection");
 					
-					if(abs($xx - $x) < $sp && abs($yy - $y) < $sp && abs($zz - $z) < $sp){
+					if(abs($sx - $x) < $cp && abs($sy - $y) < $cp && abs($sz - $z) < $cp){
 						
 						$event->setCancelled(true);
 						
@@ -166,7 +153,7 @@ class SoupFFA extends PluginBase implements Listener{
 	
 	
 	
-	public function SoupItems($player){
+	public function SoupItems(Player $player){
 		  
 		$inv = $player->getInventory();
 		$inv->clearAll();
@@ -184,7 +171,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->setHealth(20);
 	}
 	
-	public function normalPlayer($player){
+	public function normalPlayer(Player $player){
 		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
 		$inv = $player->getInventory();
 		
@@ -204,7 +191,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv->sendArmorContents($player);
 	}
 	
-	public function vipPlayer($player){
+	public function vipPlayer(Player $player){
 		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
 		$inv = $player->getInventory();
 		
@@ -231,6 +218,35 @@ class SoupFFA extends PluginBase implements Listener{
 		}else{
 			$player->sendTitle($line1, $line2);
 			return;
+		}
+	}
+	
+	public function ArenaJoin(Player $player){
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
+		$arenaname = $config->get("arena");
+		
+		if(!$this->getServer()->isLevelLoaded($arenaname))
+			$this->getServer()->loadLevel($arenaname);
+		}
+		
+		$arenalevel = $this->getServer()->getLevelByName($arenaname);
+		$arenaspawn = $arenalevel->getSafeSpawn();
+		$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
+		$player->teleport($arenaspawn, 0, 0);
+		$this->SoupItems($player);
+		$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
+		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
+	}
+	
+	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
+		if($args[0] == "soupffa"){
+			if($sender instanceof Player){
+				$sender = $player;
+				$this->ArenaJoin($player);
+				return;
+			}else{
+				$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
+			}
 		}
 	}
 }

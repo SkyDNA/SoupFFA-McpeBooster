@@ -23,6 +23,10 @@ Click on the Sign and play with you friends :D
 When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
 
 <br>
+
+You can join SoupFFA directly per the "/soupffa" Command
+
+<br>
 <br>
 
 YouTube Video:
