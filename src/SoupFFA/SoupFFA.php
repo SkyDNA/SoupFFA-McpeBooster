@@ -79,6 +79,7 @@ class SoupFFA extends PluginBase implements Listener{
 				if($text[2] == "§2Join"){
 					$this->ArenaJoin($player);
 					return;
+				}
 			}
 			$player->sendMessage( $this->prefix ." §cYou can not join SoupFFA!");
 			return;
