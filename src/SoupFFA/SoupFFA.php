@@ -226,7 +226,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
 		$arenaname = $config->get("arena");
 		
-		if(!$this->getServer()->isLevelLoaded($arenaname))
+		if(!$this->getServer()->isLevelLoaded($arenaname)){
 			$this->getServer()->loadLevel($arenaname);
 		}
 		
@@ -238,7 +238,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
 		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
 	}
-	
+	/*
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
 		if($args[0] == "soupffa"){
 			if($sender instanceof Player){
@@ -249,5 +249,5 @@ class SoupFFA extends PluginBase implements Listener{
 				$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
 			}
 		}
-	}
+	}*/
 }
