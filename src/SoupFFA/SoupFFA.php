@@ -32,6 +32,14 @@ class SoupFFA extends PluginBase implements Listener{
 			$config->set("spawnprotection", 5);
 			$config->save();
 		}
+		if(empty($config->get("sword"))) {
+			$config->set("sword", 267);
+			$config->set("helmet", 298);
+			$config->set("chestplate", 303);
+			$config->set("leggings", 300);
+			$config->set("boots", 301);
+			$config->save();
+		}
 		if($config->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("###############################################");
@@ -150,18 +158,27 @@ class SoupFFA extends PluginBase implements Listener{
 	
 	
 	public function SoupItems($player){
+		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
 		$inv = $player->getInventory();
 		$inv->clearAll();
 		$slots = array(1,2,3,4,5,6,7,8);
 		foreach($slots as $s){
 		    $inv->setItem($s, Item::get(282));
 		}
-		$inv->setItem(0, Item::get(267));
 		
-		$inv->setHelmet(Item::get(298));
-		$inv->setChestplate(Item::get(303));
-		$inv->setLeggings(Item::get(300));
-		$inv->setBoots(Item::get(301));
+		$sword = $config->get("sword");
+		
+		$inv->setItem(0, Item::get($sword));
+		
+		$helmet = $config->get("helmet");
+		$chestplate = $config->get("chestplate");
+		$leggings = $config->get("leggings");
+		$boots = $config->get("boots");
+		
+		$inv->setHelmet(Item::get($helmet));
+		$inv->setChestplate(Item::get($chestplate));
+		$inv->setLeggings(Item::get($leggings));
+		$inv->setBoots(Item::get($boots));
 		$inv->sendArmorContents($player);
 		
 		$player->setFood(20);
