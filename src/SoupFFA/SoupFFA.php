@@ -28,6 +28,10 @@ class SoupFFA extends PluginBase implements Listener{
 			$config->set("arena", "debug123");
 			$config->save();
 		}
+		if(empty($config->get("spawnprotection"))) {
+			$config->set("spawnprotection", 5);
+			$config->save();
+		}
 		if($config->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("###############################################");
@@ -58,6 +62,11 @@ class SoupFFA extends PluginBase implements Listener{
 				if($text[2] == "§2Join"){
 					$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
 					$arenaname = $config->get("arena");
+					
+					if(!$this->getServer()->isLevelLoaded($arenaname))
+						$this->getServer()->loadLevel($arenaname);
+					}
+					
 					$arenalevel = $this->getServer()->getLevelByName($arenaname);
 					$arenaspawn = $arenalevel->getSafeSpawn();
 					$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
@@ -66,11 +75,9 @@ class SoupFFA extends PluginBase implements Listener{
 					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
 					$player->addTitle("§6|§2SoupFFA§6|", "§8by McpeBooster");
 					return;
-				}else{
-					$player->sendMessage( $this->prefix ." §c you can not join SoupFFA!");
-					return;
-				}
 			}
+			$player->sendMessage( $this->prefix ." §c you can not join SoupFFA!");
+			return;
 		}
 	}
 	
@@ -109,7 +116,9 @@ class SoupFFA extends PluginBase implements Listener{
 					$yy = $entity->getLevel()->getSafeSpawn()->getY();
 					$zz = $entity->getLevel()->getSafeSpawn()->getZ();
 					
-					if (abs($xx - $x) < 7 && abs($yy - $y) < 7 && abs($zz - $z) < 7){
+					$sp = $config->get("spawnprotection");
+					
+					if(abs($xx - $x) < $sp && abs($yy - $y) < $sp && abs($zz - $z) < $sp){
 						
 						$event->setCancelled(true);
 						
@@ -122,9 +131,11 @@ class SoupFFA extends PluginBase implements Listener{
 						$arenaspawn = $arenalevel->getSafeSpawn();
 						$entity->teleport($arenaspawn, 0, 0);
 						
-						$entity->addTitle("§4Death", "");
+						$entity->addTitle("§4Death", $killer->getName());
+						$killer->addTitle("§2Kill", $entity->getName());
 						
 						$this->SoupItems($entity);
+						$this->SoupItems($killer);
 						
 						$entity->sendMessage($this->prefix . C::GRAY . "The Player " . C::RED . $killer->getName() . C::GRAY . " has killed you!");
 						$killer->sendMessage($this->prefix . C::GRAY . "You have killed " . C::RED . $entity->getName() . C::GRAY . " !");
@@ -152,7 +163,8 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv->setLeggings(Item::get(300));
 		$inv->setBoots(Item::get(301));
 		$inv->sendArmorContents($player);
-
+		
+		$player->setFood(20);
 		$player->setHealth(20);
 	}
 }
