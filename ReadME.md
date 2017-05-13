@@ -23,7 +23,7 @@ Click on the Sign and play with you friends :D
 <br>
 
 
-Kontaktdaten:
+Contact details:
 
 Twitter: https://twitter.com/McpeBooster
 
