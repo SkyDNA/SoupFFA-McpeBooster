@@ -72,11 +72,11 @@ class SoupFFA extends PluginBase implements Listener{
 					$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
 					$player->teleport($arenaspawn, 0, 0);
 					$this->SoupItems($player);
-					$player->sendMessage( $this->prefix ." you have joined SoupFFA!");
+					$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
 					$player->addTitle("§6|§2SoupFFA§6|", "§8by McpeBooster");
 					return;
 			}
-			$player->sendMessage( $this->prefix ." §c you can not join SoupFFA!");
+			$player->sendMessage( $this->prefix ." §c You can not join SoupFFA!");
 			return;
 		}
 	}
@@ -87,10 +87,10 @@ class SoupFFA extends PluginBase implements Listener{
 			if($player->isOp()){
 				$event->setLine(0, $this->prefix);
 				$event->setLine(2, "§2Join");
-				$player->sendMessage("JoinSign set!");
+				$player->sendMessage("§8JoinSign set!");
 				return;
 			}
-			$player->sendMessage("You do not have the Permission to do that!");
+			$player->sendMessage($this->prefix. " §cYou do not have the Permission to do that!");
 			return;
 		}
 	}
@@ -122,7 +122,7 @@ class SoupFFA extends PluginBase implements Listener{
 						
 						$event->setCancelled(true);
 						
-						$killer->sendMessage($this->prefix . "PvP is only allowed further away from the spawn!");
+						$killer->sendMessage($this->prefix . " PvP is only allowed further away from the spawn!");
 						return;
 					}elseif ($event->getDamage() >= $entity->getHealth()) {
 						$event->setCancelled(true);
@@ -137,8 +137,8 @@ class SoupFFA extends PluginBase implements Listener{
 						$this->SoupItems($entity);
 						$this->SoupItems($killer);
 						
-						$entity->sendMessage($this->prefix . C::GRAY . "The Player " . C::RED . $killer->getName() . C::GRAY . " has killed you!");
-						$killer->sendMessage($this->prefix . C::GRAY . "You have killed " . C::RED . $entity->getName() . C::GRAY . " !");
+						$entity->sendMessage($this->prefix . C::GRAY . " The Player " . C::RED . $killer->getName() . C::GRAY . " has killed you!");
+						$killer->sendMessage($this->prefix . C::GRAY . " You have killed " . C::RED . $entity->getName() . C::GRAY . " !");
 						return;
 						}
 					}
