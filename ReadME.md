@@ -24,7 +24,7 @@ When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
 
 <br>
 
-You can join SoupFFA directly per the "/soupffa" Command
+You can join SoupFFA directly per the "/soupffa join" Command or per Sign
 
 <br>
 <br>

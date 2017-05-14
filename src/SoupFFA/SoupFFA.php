@@ -242,15 +242,59 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
 	}
 	
+	/**
+	* @param Player $player
+	*/
+	
+	public function ArenaLeave(Player $player){
+		
+		$default = $this->getServer()->getDefaultLevel();
+		$spawn = $default->getSafeSpawn();
+		$player->teleport($spawn, 0, 0);
+		$player->setFood(20);
+		$player->setHealth(20);
+		$inv = $player->getInventory();
+		$inv->clearAll();
+		$player->sendMessage($this->prefix." You left SoupFFA!");
+	}
+	
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
 		if($cmd->getName() == "soupffa"){
 			if($sender instanceof Player){
 				$player = $sender;
-				$this->ArenaJoin($player);
+				if(!empty($args[0])){
+					if($args[0] == "join"){
+					$world = $player->getLevel()->getFolderName();
+					$arenaname = $this->getConfig()->get("arena");
+						
+						if($arenaname == $world){
+							$player->sendMessage($this->prefix. " You are already in an SoupFFA Arena!");
+							return;
+						}else{
+							$this->ArenaJoin($player);
+							return;
+						}
+					
+					}elseif($args[0] == "leave" or $args[0] == "quit"){
+						$world = $player->getLevel()->getFolderName();
+						$arenaname = $this->getConfig()->get("arena");
+						
+						if($arenaname == $world){
+							$this->ArenaLeave($player);
+							return;
+						}else{
+							$player->sendMessage($this->prefix. " You are not in an SoupFFA Arena!");
+							return;
+						}
+					}
+					
+				}
+				$player->sendMessage($this->prefix. " Syntax: /soupffa <join/quit>!");
 				return;
-			}else{
-				$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
 			}
+			$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
+			return;
 		}
 	}
+	
 }
