@@ -4,7 +4,8 @@ Pocketmine SoupFFA Plugin by @McpeBooster
 
 <br>
 
-This Plugin supports now the original PocketMine-MP/pmmp and Pocketmine spoons like Tesseract
+This has now a MultiLang System with English and German, more cooming soon.
+change this easily in the config.yml
 
 <br>
 <br>

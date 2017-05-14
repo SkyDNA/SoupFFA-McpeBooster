@@ -22,12 +22,14 @@ class SoupFFA extends PluginBase implements Listener{
 	public $prefix = C::GRAY."[".C::GREEN."SoupFFA".C::GRAY."]";
 
 	public function onEnable(){
-		$this->getLogger()->info($this->prefix . " by McpeBooster!");
+		$this->getLogger()->info($this->prefix . " §7by §6McpeBooster§7!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		$this->saveDefaultConfig();
 		
 		$lang = $this->getConfig()->get("language", BaseLang::FALLBACK_LANGUAGE);
         $this->baseLang = new BaseLang($lang, $this->getFile() . "resources/");
+		
+		$this->getLogger()->info($this->prefix . " Language: ".$lang);
 		
 		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
