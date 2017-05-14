@@ -4,7 +4,7 @@ Pocketmine SoupFFA Plugin by @McpeBooster
 
 <br>
 
-This has now a MultiLang System with English and German, more cooming soon.
+This has now a MultiLang System with English, German Arabic and French, more comming soon.
 change this easily in the config.yml
 
 <br>
