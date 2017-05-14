@@ -25,7 +25,7 @@ class SoupFFA extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getLogger()->info($this->prefix . " by McpeBooster!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
-		
+		@mkdir($this->getDataFolder());
 		$this->saveResource("/config.yml");
 		
 		if($this->getConfig()->get("arena") == "debug123"){
