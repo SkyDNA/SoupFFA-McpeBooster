@@ -26,7 +26,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->getLogger()->info($this->prefix . " by McpeBooster!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		
-		$this->loadConfig();
+		$this->saveResource("/config.yml");
 		
 		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
@@ -39,14 +39,6 @@ class SoupFFA extends PluginBase implements Listener{
 		
 		$this->getServer()->loadLevel($this->getConfig()->get("arena"));
 		
-	}
-	
-	private function loadConfig(){
-		@mkdir($this->getDataFolder());
-		
-        if(!is_file($this->getDataFolder()."/config.yml")) {
-            $this->saveResource("/config.yml");
-        }
 	}
 	
 	public function onInteract(PlayerInteractEvent $event){
