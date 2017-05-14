@@ -9,6 +9,7 @@ use pocketmine\utils\{Textformat as C, Config};
 use pocketmine\Player;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
+use pocketmine\lang\BaseLang;
 
 use pocketmine\command\{Command, CommandSender};
 
@@ -25,10 +26,13 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		$this->saveDefaultConfig();
 		
+		$lang = $this->getConfig()->get("language", BaseLang::FALLBACK_LANGUAGE);
+        $this->baseLang = new BaseLang($lang, $this->getFile() . "resources/");
+		
 		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("######################################################");
-			$this->getLogger()->emergency(" Please change the SoupFFA world in the config.yml!!!");
+			$this->getLogger()->emergency($this->getLanguage()->get("setting.world.change"));
 			$this->getLogger()->emergency("######################################################");
 			$this->getServer()->getPluginManager()->disablePlugin($plugin);
 			return;
@@ -38,6 +42,15 @@ class SoupFFA extends PluginBase implements Listener{
 		
 	}
 	
+	/**
+     * @api
+     * @return BaseLang
+     */
+	 
+    public function getLanguage() : BaseLang {
+        return $this->baseLang;
+    }
+	
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
 		$item = $event->getItem();
@@ -46,7 +59,7 @@ class SoupFFA extends PluginBase implements Listener{
 			$player->getInventory()->removeItem($item);
 			$player->setHealth($player->getHealth() + 5);
 			$player->setFood(20);
-			$player->sendTip("§cYou have been healed!");
+			$player->sendTip($this->getLanguage()->get("player.healed"));
 			return;
 		}elseif($player->getLevel()->getTile($block) instanceof Sign) {
 			$tile = $player->getLevel()->getTile($block);
@@ -57,7 +70,7 @@ class SoupFFA extends PluginBase implements Listener{
 					return;
 				}
 			}
-			$player->sendMessage( $this->prefix ." §cYou can not join SoupFFA!");
+			$player->sendMessage($this->getLanguage()->get("player.join.error"));
 			return;
 		}
 	}
@@ -68,10 +81,10 @@ class SoupFFA extends PluginBase implements Listener{
 			if($player->isOp()){
 				$event->setLine(0, $this->prefix);
 				$event->setLine(2, "§2Join");
-				$player->sendMessage($this->prefix. " §8JoinSign set!");
+				$player->sendMessage($this->prefix. $this->getLanguage()->get("settings.sign.set"));
 				return;
 			}
-			$player->sendMessage($this->prefix. " §cYou do not have the Permission to do that!");
+			$player->sendMessage($this->prefix. $this->getLanguage()->get("player.noperm"));
 			return;
 		}
 	}
@@ -102,7 +115,7 @@ class SoupFFA extends PluginBase implements Listener{
 						
 						$event->setCancelled(true);
 						
-						$killer->sendMessage($this->prefix . " PvP is only allowed further away from the spawn!");
+						$killer->sendMessage($this->prefix . $this->getLanguage()->get("player.spawnprotection"));
 						return;
 					}elseif ($event->getDamage() >= $entity->getHealth()) {
 						$event->setCancelled(true);
@@ -117,8 +130,14 @@ class SoupFFA extends PluginBase implements Listener{
 						$this->SoupItems($entity);
 						$this->SoupItems($killer);
 						
-						$entity->sendMessage($this->prefix . C::GRAY . " The Player " . C::RED . $killer->getName() . C::GRAY . " has killed you!");
-						$killer->sendMessage($this->prefix . C::GRAY . " You have killed " . C::RED . $entity->getName() . C::GRAY . " !");
+						$deathmsg = $this->getLanguage()->get("player.death");
+						$deathmsg = str_replace("{player}", $killer->getName(), $deathmsg);
+						
+						$entity->sendMessage($this->prefix . $killmsg);
+						
+						$killmsg = $this->getLanguage()->get("player.kill");
+						$killmsg = str_replace("{player}", $entity->getName(), $killmsg);
+						$killer->sendMessage($this->prefix . $killmsg);
 						return;
 						}
 					}
@@ -227,7 +246,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$arenalevel->loadChunk($arenaspawn->getX(), $arenaspawn->getZ());
 		$player->teleport($arenaspawn, 0, 0);
 		$this->SoupItems($player);
-		$player->sendMessage( $this->prefix ." You have joined SoupFFA!");
+		$player->sendMessage( $this->prefix .$this->getLanguage()->get("player.join"));
 		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
 	}
 	
@@ -244,7 +263,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->setHealth(20);
 		$inv = $player->getInventory();
 		$inv->clearAll();
-		$player->sendMessage($this->prefix." You left SoupFFA!");
+		$player->sendMessage($this->prefix.$this->getLanguage()->get("player.quit"));
 	}
 	
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
@@ -257,7 +276,7 @@ class SoupFFA extends PluginBase implements Listener{
 					$arenaname = $this->getConfig()->get("arena");
 						
 						if($arenaname == $world){
-							$player->sendMessage($this->prefix. " You are already in an SoupFFA Arena!");
+							$player->sendMessage($this->prefix. $this->getLanguage()->get("player.join.already"));
 							return;
 						}else{
 							$this->ArenaJoin($player);
@@ -272,7 +291,7 @@ class SoupFFA extends PluginBase implements Listener{
 							$this->ArenaLeave($player);
 							return;
 						}else{
-							$player->sendMessage($this->prefix. " You are not in an SoupFFA Arena!");
+							$player->sendMessage($this->prefix. $this->getLanguage()->get("player.quit.noarena"));
 							return;
 						}
 					}
@@ -281,7 +300,7 @@ class SoupFFA extends PluginBase implements Listener{
 				$player->sendMessage($this->prefix. " Syntax: /soupffa <join/quit>!");
 				return;
 			}
-			$sender->sendMessage($this->prefix." §cThis Command can be only used Ingame!");
+			$sender->sendMessage($this->prefix.$this->getLanguage()->get("console.onlyingame"));
 			return;
 		}
 	}
