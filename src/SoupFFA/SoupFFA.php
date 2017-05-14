@@ -25,33 +25,10 @@ class SoupFFA extends PluginBase implements Listener{
 	public function onEnable(){
 		$this->getLogger()->info($this->prefix . " by McpeBooster!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
-		@mkdir($this->getDataFolder());
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
-		if(empty($config->get("arena"))) {
-			$config->set("arena", "debug123");
-			$config->save();
-		}
-		if(empty($config->get("spawnprotection"))) {
-			$config->set("spawnprotection", 5);
-			$config->save();
-		}
-		if(empty($config->get("sword"))) {
-			$config->set("sword", 267);
-			$config->set("helmet", 298);
-			$config->set("chestplate", 303);
-			$config->set("leggings", 300);
-			$config->set("boots", 301);
-			$config->save();
-		}
-		if(empty($config->get("vipsword"))) {
-			$config->set("vipsword", 267);
-			$config->set("viphelmet", 302);
-			$config->set("vipchestplate", 303);
-			$config->set("vipleggings", 304);
-			$config->set("vipboots", 305);
-			$config->save();
-		}
-		if($config->get("arena") == "debug123"){
+		
+		$this->loadConfig();
+		
+		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("######################################################");
 			$this->getLogger()->emergency(" Please change the SoupFFA world in the config.yml!!!");
@@ -60,11 +37,18 @@ class SoupFFA extends PluginBase implements Listener{
 			return;
 		}
 		
-		$this->getServer()->loadLevel($config->get("arena"));
+		$this->getServer()->loadLevel($this->getConfig()->get("arena"));
 		
 	}
 	
-	#Events
+	private function loadConfig(){
+		@mkdir($this->getDataFolder());
+		
+        if(!is_file($this->getDataFolder()."/config.yml")) {
+            $this->saveResource("/config.yml");
+        }
+	}
+	
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
 		$item = $event->getItem();
@@ -104,7 +88,6 @@ class SoupFFA extends PluginBase implements Listener{
 	}
 	
 	public function onDamage(EntityDamageEvent $event) {
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);
 		$entity = $event->getEntity();
 		$cause = $event->getCause();
 		
@@ -112,7 +95,7 @@ class SoupFFA extends PluginBase implements Listener{
 			if ($event instanceof EntityDamageByEntityEvent) {
 				$killer = $event->getDamager();
 				$welt = $killer->getLevel()->getFolderName();
-				$arenaname = $config->get("arena");
+				$arenaname = $this->getConfig()->get("arena");
 				if($arenaname == $welt){
 					if ($killer instanceof Player) {
 					$message = $killer->getName();
@@ -124,7 +107,7 @@ class SoupFFA extends PluginBase implements Listener{
 					$sy = $entity->getLevel()->getSafeSpawn()->getY();
 					$sz = $entity->getLevel()->getSafeSpawn()->getZ();
 					
-					$cp = $config->get("spawnprotection");
+					$cp = $this->getConfig()->get("spawnprotection");
 					
 					if(abs($sx - $x) < $cp && abs($sy - $y) < $cp && abs($sz - $z) < $cp){
 						
@@ -155,7 +138,9 @@ class SoupFFA extends PluginBase implements Listener{
 		}
 	}
 	
-	
+	/**
+	* @param Player $player
+	*/
 	
 	public function SoupItems(Player $player){
 		  
@@ -175,18 +160,21 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->setHealth(20);
 	}
 	
+	/**
+	* @param Player $player
+	*/
+	
 	public function normalPlayer(Player $player){
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
 		$inv = $player->getInventory();
 		
-		$sword = $config->get("sword");
+		$sword = $this->getConfig()->get("sword");
 		
 		$inv->setItem(0, Item::get($sword));
 		
-		$helmet = $config->get("helmet");
-		$chestplate = $config->get("chestplate");
-		$leggings = $config->get("leggings");
-		$boots = $config->get("boots");
+		$helmet = $this->getConfig()->get("helmet");
+		$chestplate = $this->getConfig()->get("chestplate");
+		$leggings = $this->getConfig()->get("leggings");
+		$boots = $this->getConfig()->get("boots");
 		
 		$inv->setHelmet(Item::get($helmet));
 		$inv->setChestplate(Item::get($chestplate));
@@ -195,18 +183,21 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv->sendArmorContents($player);
 	}
 	
+	/**
+	* @param Player $player
+	*/
+	
 	public function vipPlayer(Player $player){
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);  
 		$inv = $player->getInventory();
 		
-		$sword = $config->get("vipsword");
+		$sword = $this->getConfig()->get("vipsword");
 		
 		$inv->setItem(0, Item::get($sword));
 		
-		$helmet = $config->get("viphelmet");
-		$chestplate = $config->get("vipchestplate");
-		$leggings = $config->get("vipleggings");
-		$boots = $config->get("vipboots");
+		$helmet = $this->getConfig()->get("viphelmet");
+		$chestplate = $this->getConfig()->get("vipchestplate");
+		$leggings = $this->getConfig()->get("vipleggings");
+		$boots = $this->getConfig()->get("vipboots");
 		
 		$inv->setHelmet(Item::get($helmet));
 		$inv->setChestplate(Item::get($chestplate));
@@ -214,6 +205,12 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv->setBoots(Item::get($boots));
 		$inv->sendArmorContents($player);
 	}
+	
+	/**
+	* @param Player $player
+	* @param $line1
+	* @param $line2
+	*/
 	
 	public function Title(Player $player, string $line1, string $line2){
 		if($this->getServer()->getName() == "PocketMine-MP"){
@@ -225,9 +222,12 @@ class SoupFFA extends PluginBase implements Listener{
 		}
 	}
 	
+	/**
+	* @param Player $player
+	*/
+	
 	public function ArenaJoin(Player $player){
-		$config = new Config($this->getDataFolder() . "config.yml", Config::YAML);    
-		$arenaname = $config->get("arena");
+		$arenaname = $this->getConfig()->get("arena");
 		
 		if(!$this->getServer()->isLevelLoaded($arenaname)){
 			$this->getServer()->loadLevel($arenaname);
