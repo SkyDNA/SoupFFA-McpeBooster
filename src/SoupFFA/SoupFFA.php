@@ -10,13 +10,11 @@ use pocketmine\Player;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
 
-use pocketmine\command\Command;
-use pocketmine\command\CommandSender;
+use pocketmine\command\{Command, CommandSender};
 
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\event\block\SignChangeEvent;
-use pocketmine\event\entity\EntityDamageEvent;
-use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\entity\{EntityDamageByEntityEvent, EntityDamageEvent};
 
 class SoupFFA extends PluginBase implements Listener{
 	
