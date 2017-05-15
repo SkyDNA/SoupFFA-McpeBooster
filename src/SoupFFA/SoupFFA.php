@@ -27,7 +27,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->saveDefaultConfig();
 		
 		$lang = $this->getConfig()->get("language", BaseLang::FALLBACK_LANGUAGE);
-        $this->baseLang = new BaseLang($lang, $this->getFile() . "resources/");
+		$this->baseLang = new BaseLang($lang, $this->getFile() . "resources/");
 		
 		$this->getLogger()->info($this->prefix . " Language: ".$lang);
 		
@@ -45,13 +45,13 @@ class SoupFFA extends PluginBase implements Listener{
 	}
 	
 	/**
-     * @api
-     * @return BaseLang
-     */
+	 * @api
+	 * @return BaseLang
+	 */
 	 
-    public function getLanguage() : BaseLang {
-        return $this->baseLang;
-    }
+	 public function getLanguage() : BaseLang {
+		 return $this->baseLang;
+		 }
 	
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
@@ -86,6 +86,7 @@ class SoupFFA extends PluginBase implements Listener{
 				$player->sendMessage($this->prefix. $this->getLanguage()->get("settings.sign.set"));
 				return;
 			}
+			$event->setCancelled(true);
 			$player->sendMessage($this->prefix. $this->getLanguage()->get("player.noperm"));
 			return;
 		}
