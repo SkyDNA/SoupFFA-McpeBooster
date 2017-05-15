@@ -49,9 +49,9 @@ class SoupFFA extends PluginBase implements Listener{
 	 * @return BaseLang
 	 */
 	 
-	 public function getLanguage() : BaseLang {
-		 return $this->baseLang;
-		 }
+	public function getLanguage() : BaseLang {
+		return $this->baseLang;
+		}
 	
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
@@ -303,7 +303,7 @@ class SoupFFA extends PluginBase implements Listener{
 				$player->sendMessage($this->prefix. " Syntax: /soupffa <join/quit>!");
 				return;
 			}
-			$sender->sendMessage($this->prefix.$this->getLanguage()->get("console.onlyingame"));
+			$sender->sendMessage($this->prefix. " §7by §6McpeBooster§7!");
 			return;
 		}
 	}
