@@ -5,7 +5,7 @@ namespace SoupFFA;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
 use pocketmine\event\Listener;
-use pocketmine\utils\{Textformat as C, Config};
+use pocketmine\utils\Config;
 use pocketmine\Player;
 use pocketmine\item\Item;
 use pocketmine\tile\Sign;
@@ -19,10 +19,10 @@ use pocketmine\event\entity\{EntityDamageByEntityEvent, EntityDamageEvent};
 
 class SoupFFA extends PluginBase implements Listener{
 	
-	public $prefix = C::GRAY."[".C::GREEN."SoupFFA".C::GRAY."]";
+	public $prefix = "§7[§2SoupFFA§7]";
 
 	public function onEnable(){
-		$this->getLogger()->info($this->prefix . " §7by §6McpeBooster§7!");
+		$this->getLogger()->info($this->prefix . " by §6McpeBooster§7!");
 		$this->getServer()->getPluginManager()->registerEvents($this,$this);
 		$this->saveDefaultConfig();
 		
