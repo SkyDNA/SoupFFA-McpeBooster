@@ -45,6 +45,8 @@ When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
 
 <H1>YouTube Video:</H1>
 
+[![Alt text](https://img.youtube.com/vi/iQ-GgxrWYQk/0.jpg)](https://www.youtube.com/watch?v=iQ-GgxrWYQk)
+
 https://youtu.be/iQ-GgxrWYQk
 
 <br>
