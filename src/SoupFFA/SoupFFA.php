@@ -71,9 +71,9 @@ class SoupFFA extends PluginBase implements Listener{
 					$this->ArenaJoin($player);
 					return;
 				}
+				$player->sendMessage($this->getLanguage()->get("player.join.error"));
+				return;
 			}
-			$player->sendMessage($this->getLanguage()->get("player.join.error"));
-			return;
 		}
 	}
 	
