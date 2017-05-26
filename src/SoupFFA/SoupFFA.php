@@ -51,7 +51,7 @@ class SoupFFA extends PluginBase implements Listener{
 	 
 	public function getLanguage() : BaseLang {
 		return $this->baseLang;
-		}
+	}
 	
 	public function onInteract(PlayerInteractEvent $event){
 		$player = $event->getPlayer();
@@ -82,7 +82,8 @@ class SoupFFA extends PluginBase implements Listener{
 		if($event->getLine(0) == "SoupFFA"){
 			if($player->isOp()){
 				$event->setLine(0, $this->prefix);
-				$event->setLine(2, "§2Join");
+				$event->setLine(2, "§aJoin");
+				$event->setLine(3, "§f0 §7/ §c2");
 				$player->sendMessage($this->prefix. $this->getLanguage()->get("settings.sign.set"));
 				return;
 			}
@@ -136,7 +137,7 @@ class SoupFFA extends PluginBase implements Listener{
 						$deathmsg = $this->getLanguage()->get("player.death");
 						$deathmsg = str_replace("{player}", $killer->getName(), $deathmsg);
 						
-						$entity->sendMessage($this->prefix . $killmsg);
+						$entity->sendMessage($this->prefix . $deathmsg);
 						
 						$killmsg = $this->getLanguage()->get("player.kill");
 						$killmsg = str_replace("{player}", $entity->getName(), $killmsg);
@@ -250,7 +251,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$player->teleport($arenaspawn, 0, 0);
 		$this->SoupItems($player);
 		$player->sendMessage( $this->prefix .$this->getLanguage()->get("player.join"));
-		$this->Title($player, "§6|§2SoupFFA§6|", "§8by McpeBooster");
+		$this->updateSign($arenaname);
 	}
 	
 	/**
@@ -258,7 +259,6 @@ class SoupFFA extends PluginBase implements Listener{
 	*/
 	
 	public function ArenaLeave(Player $player){
-		
 		$default = $this->getServer()->getDefaultLevel();
 		$spawn = $default->getSafeSpawn();
 		$player->teleport($spawn, 0, 0);
@@ -267,6 +267,36 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv = $player->getInventory();
 		$inv->clearAll();
 		$player->sendMessage($this->prefix.$this->getLanguage()->get("player.quit"));
+		$this->updateSign($arena);
+	}
+	
+	#Sign
+	
+	/*
+	* @param $arena
+	*/
+	
+	private function updateSign(string $arena){
+		$lobby = $this->getServer()->getDefaultLevel();
+		if($this->getServer()->isLevelLoaded($lobby->getFolderName())){
+			foreach($lobby->getTiles() as $tile){
+				if($tile instanceof Sign){
+				$signt = $tile->getText();
+				if($signt[0] == $this->prefix){
+					if($signt[1] == $arena){
+						$status = $this->config->getNested($arena . ".Status");
+						$arenalevel = $this->getServer()->getLevelByName($arena);
+						$playercount = count($arenalevel->getPlayers());
+						if($status == "Ingame"){
+							$tile->setText($signt[0], $signt[1], "§cIngame", "§f".$playercount." §7/ §c2");
+						}else{
+							$tile->setText($signt[0], $signt[1], "§aJoin", "§f".$playercount." §7/ §c2");
+						}
+					}
+				}
+				}
+			}
+		}
 	}
 	
 	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
