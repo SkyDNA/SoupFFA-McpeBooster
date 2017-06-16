@@ -6,7 +6,7 @@
 
 <H1>News:</H1>
 
-This Plugin has now a MultiLang System with English, German Arabic, France and Chinese , more comming soon.
+This Plugin has now a MultiLang System with English, German Arabic, France, Türkce and Chinese , more comming soon.
 
 <br>
 
