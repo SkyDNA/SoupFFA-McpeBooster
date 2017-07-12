@@ -267,7 +267,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$inv = $player->getInventory();
 		$inv->clearAll();
 		$player->sendMessage($this->prefix.$this->getLanguage()->get("player.quit"));
-		$this->updateSign($arena);
+		$this->updateSign($this->getConfig()->get("arena"));
 	}
 	
 	#Sign
