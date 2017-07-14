@@ -1,7 +1,5 @@
 <H1>Pocketmine SoupFFA Plugin by @McpeBooster</H1>
 
-[![Poggit-CI](https://poggit.pmmp.io/ci.badge/McpeBooster/SoupFFA-McpeBooster/SoupFFA)](https://poggit.pmmp.io/ci/McpeBooster/SoupFFA-McpeBooster/SoupFFA)
-
 <br>
 
 <H1>News:</H1>
