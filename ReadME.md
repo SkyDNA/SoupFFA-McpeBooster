@@ -12,7 +12,7 @@ Change the language easily in the config.yml
 
 <br>
 
-<H1>Phar:</H>
+<H1>Phar:</H1>
 
 get the latest .phar: http://McpeBooster.tk/plugins
 
