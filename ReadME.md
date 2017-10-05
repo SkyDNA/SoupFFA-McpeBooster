@@ -2,7 +2,15 @@
 
 <br>
 
+<H1>Explanations</H1>
+
+SoupFFA is an endless game mode, which is about to kill your opponents. Every player has his inventory full of soup, which will heal you when you eat it.
+
+<br>
+
 <H1>News:</H1>
+
+Updatet to Mcpe version 1.2
 
 This Plugin has now a MultiLang System with English, German Arabic, France, Türkce and Chinese , more comming soon.
 
