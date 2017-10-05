@@ -299,8 +299,8 @@ class SoupFFA extends PluginBase implements Listener{
 		}
 	}
 	
-	public function onCommand(CommandSender $sender, Command $cmd, $label, array $args){
-		if($cmd->getName() == "soupffa"){
+	public function onCommand(CommandSender $sender, Command $command, $label, array $args) : bool {
+		if($command->getName() == "soupffa"){
 			if($sender instanceof Player){
 				$player = $sender;
 				if(!empty($args[0])){
@@ -310,10 +310,10 @@ class SoupFFA extends PluginBase implements Listener{
 						
 						if($arenaname == $world){
 							$player->sendMessage($this->prefix. $this->getLanguage()->get("player.join.already"));
-							return;
+							return false;
 						}else{
 							$this->ArenaJoin($player);
-							return;
+							return true;
 						}
 					
 					}elseif($args[0] == "leave" or $args[0] == "quit"){
@@ -322,19 +322,19 @@ class SoupFFA extends PluginBase implements Listener{
 						
 						if($arenaname == $world){
 							$this->ArenaLeave($player);
-							return;
+							return true;
 						}else{
 							$player->sendMessage($this->prefix. $this->getLanguage()->get("player.quit.noarena"));
-							return;
+							return false;
 						}
 					}
 					
 				}
 				$player->sendMessage($this->prefix. " Syntax: /soupffa <join/quit>!");
-				return;
+				return false;
 			}
 			$sender->sendMessage($this->prefix. " §7by §6McpeBooster§7!");
-			return;
+			return false;
 		}
 	}
 	
