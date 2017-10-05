@@ -67,7 +67,7 @@ class SoupFFA extends PluginBase implements Listener{
 			$tile = $player->getLevel()->getTile($block);
 			$text = $tile->getText();
 			if ($text[0] == $this->prefix) {
-				if($text[2] == "§2Join"){
+				if($text[2] == "§aJoin"){
 					$this->ArenaJoin($player);
 					return;
 				}
