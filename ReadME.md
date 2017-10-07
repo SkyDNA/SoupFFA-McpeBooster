@@ -14,7 +14,7 @@ Addet wiki: https://github.com/McpeBooster/SoupFFA-McpeBooster/wiki
 
 Updatet to Mcpe version 1.2
 
-This Plugin has now a MultiLang System with English, German Arabic, France, Türkce and Chinese , more comming soon.
+This Plugin has now a MultiLang System with English, German Arabic, France, Türkce, Spain and Chinese , more comming soon.
 
 <br>
 
