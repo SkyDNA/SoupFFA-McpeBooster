@@ -10,6 +10,8 @@ SoupFFA is an endless game mode, which is about to kill your opponents. Every pl
 
 <H1>News:</H1>
 
+Addet wiki: https://github.com/McpeBooster/SoupFFA-McpeBooster/wiki
+
 Updatet to Mcpe version 1.2
 
 This Plugin has now a MultiLang System with English, German Arabic, France, Türkce and Chinese , more comming soon.
