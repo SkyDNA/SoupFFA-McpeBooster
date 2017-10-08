@@ -31,6 +31,10 @@ class SoupFFA extends PluginBase implements Listener{
 		
 		$this->getLogger()->info($this->prefix . " Language: ".$lang);
 		
+		//Check for Update
+		$this->checkUpdate();
+		
+		
 		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("######################################################");
@@ -51,6 +55,15 @@ class SoupFFA extends PluginBase implements Listener{
 	 
 	public function getLanguage() : BaseLang {
 		return $this->baseLang;
+	}
+	
+	public function checkUpdate(){
+		$datei = fopen ("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/plugin.yml", "r");
+		if(!$datei) return false;
+		
+		$json = json_decode($datei, true);
+		var_dump($json);
+		return true;
 	}
 	
 	public function onInteract(PlayerInteractEvent $event){
