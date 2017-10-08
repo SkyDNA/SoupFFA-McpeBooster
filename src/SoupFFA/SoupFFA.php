@@ -69,7 +69,7 @@ class SoupFFA extends PluginBase implements Listener{
 		if(!$datei) return false;
 		
 		$datei = str_replace("\n", "", $datei);
-		$newversion = explode("version: ", $newversion);
+		$newversion = explode("version: ", $datei);
 		$newversion = explode("api: ", $newversion[1]);
 		$newversion = $newversion[0];
 		var_dump($newversion);
@@ -77,8 +77,17 @@ class SoupFFA extends PluginBase implements Listener{
 		$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 		$version = $plugin->getDescription()->getVersion();
 		var_dump($version);
+		if(!($version === $newversion)){
+			$this->getLogger()->info("§aNew Update available!");
+			$this->getLogger()->info("Local Version: " . $version);
+			$this->getLogger()->info("Newest Version: " . $newversion);
+			$this->getLogger()->info("Update your Plugin by downloading the new source at §7https://github.com/McpeBooster/SoupFFA-McpeBooster/");
+			$this->getLogger()->info("or get the newest .phar at §7http://McpeBooster.tk/plugins/");
+			
+			return true;
+		}
 		
-		return true;
+		return false;
 	}
 	
 	public function onInteract(PlayerInteractEvent $event){
