@@ -58,11 +58,22 @@ class SoupFFA extends PluginBase implements Listener{
 	}
 	
 	public function checkUpdate(){
-		$datei = fopen ("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/plugin.yml", "r");
+		$arrContextOptions = array(
+			"ssl" => array(
+				"verify_peer" => false,
+				"verify_peer_name" => false,
+				),
+			);
+		
+		$datei = file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/plugin.yml", false, stream_context_create($arrContextOptions));
 		if(!$datei) return false;
 		
-		$json = json_decode($datei, true);
-		var_dump($json);
+		$datei = str_replace("\n", "", $datei);
+		$version = explode("version: ", $datei);
+		$version = explode("api: ", $version[1]);
+		$version = $version[0];
+		var_dump($version);
+		
 		return true;
 	}
 	
