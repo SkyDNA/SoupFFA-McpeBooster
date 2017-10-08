@@ -31,6 +31,10 @@ class SoupFFA extends PluginBase implements Listener{
 		
 		$this->getLogger()->info($this->prefix . " Language: ".$lang);
 		
+		//Check for Update
+		$this->checkUpdate();
+		
+		
 		if($this->getConfig()->get("arena") == "debug123"){
 			$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 			$this->getLogger()->emergency("######################################################");
@@ -51,6 +55,38 @@ class SoupFFA extends PluginBase implements Listener{
 	 
 	public function getLanguage() : BaseLang {
 		return $this->baseLang;
+	}
+	
+	public function checkUpdate(){
+		$arrContextOptions = array(
+			"ssl" => array(
+				"verify_peer" => false,
+				"verify_peer_name" => false,
+				),
+			);
+		
+		$datei = file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/plugin.yml", false, stream_context_create($arrContextOptions));
+		if(!$datei) return false;
+		
+		$datei = str_replace("\n", "", $datei);
+		$newversion = explode("version: ", $datei);
+		$newversion = explode("api: ", $newversion[1]);
+		$newversion = $newversion[0];
+		//var_dump($newversion);
+		
+		$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
+		$version = $plugin->getDescription()->getVersion();
+		//var_dump($version);
+		if(!($version === $newversion)){
+			$this->getLogger()->info("§aNew Update available!");
+			$this->getLogger()->info("§7Local Version: §6" . $version);
+			$this->getLogger()->info("§7Newest Version: §6" . $newversion);
+			$this->getLogger()->info("§aUpdate your Plugin by downloading the new source at §7https://github.com/McpeBooster/SoupFFA-McpeBooster/");
+			$this->getLogger()->info("§aor get the newest .phar at §7http://McpeBooster.tk/plugins/");
+			return true;
+		}
+		
+		return false;
 	}
 	
 	public function onInteract(PlayerInteractEvent $event){
