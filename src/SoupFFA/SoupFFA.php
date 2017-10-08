@@ -72,18 +72,17 @@ class SoupFFA extends PluginBase implements Listener{
 		$newversion = explode("version: ", $datei);
 		$newversion = explode("api: ", $newversion[1]);
 		$newversion = $newversion[0];
-		var_dump($newversion);
+		//var_dump($newversion);
 		
 		$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 		$version = $plugin->getDescription()->getVersion();
-		var_dump($version);
+		//var_dump($version);
 		if(!($version === $newversion)){
 			$this->getLogger()->info("§aNew Update available!");
-			$this->getLogger()->info("Local Version: " . $version);
-			$this->getLogger()->info("Newest Version: " . $newversion);
-			$this->getLogger()->info("Update your Plugin by downloading the new source at §7https://github.com/McpeBooster/SoupFFA-McpeBooster/");
-			$this->getLogger()->info("or get the newest .phar at §7http://McpeBooster.tk/plugins/");
-			
+			$this->getLogger()->info("§7Local Version: §6" . $version);
+			$this->getLogger()->info("§7Newest Version: §6" . $newversion);
+			$this->getLogger()->info("§aUpdate your Plugin by downloading the new source at §7https://github.com/McpeBooster/SoupFFA-McpeBooster/");
+			$this->getLogger()->info("§aor get the newest .phar at §7http://McpeBooster.tk/plugins/");
 			return true;
 		}
 		
