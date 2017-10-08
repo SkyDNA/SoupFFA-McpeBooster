@@ -74,6 +74,7 @@ class SoupFFA extends PluginBase implements Listener{
 		$newversion = $newversion[0];
 		var_dump($newversion);
 		
+		$plugin = $this->getServer()->getPluginManager()->getPlugin("SoupFFA");
 		$version = $plugin->getDescription()->getVersion();
 		var_dump($version);
 		
