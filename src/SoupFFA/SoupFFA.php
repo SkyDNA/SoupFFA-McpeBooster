@@ -69,9 +69,12 @@ class SoupFFA extends PluginBase implements Listener{
 		if(!$datei) return false;
 		
 		$datei = str_replace("\n", "", $datei);
-		$version = explode("version: ", $datei);
-		$version = explode("api: ", $version[1]);
-		$version = $version[0];
+		$newversion = explode("version: ", $newversion);
+		$newversion = explode("api: ", $newversion[1]);
+		$newversion = $newversion[0];
+		var_dump($newversion);
+		
+		$version = $plugin->getDescription()->getVersion();
 		var_dump($version);
 		
 		return true;
