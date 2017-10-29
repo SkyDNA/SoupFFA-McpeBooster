@@ -1,0 +1,32 @@
+{
+   "name": "McpeBooster/SoupFFA-McpeBooster",
+   "description": "A PocketMine SoupFFA Plugin by @McpeBooster",
+   "type": "project",
+   "homepage": "http://McpeBooster.tk",
+   "require": {
+      "php": ">=7.2",
+      "ext-bcmath": "*",
+      "ext-curl": "*",
+      "ext-hash": "*",
+      "ext-json": "*",
+      "ext-mbstring": "*",
+      "ext-openssl": "*",
+      "ext-pcre": "*",
+      "ext-phar": "*",
+      "ext-pthreads": ">=3.1.7dev",
+      "ext-reflection": "*",
+      "ext-sockets": "*",
+      "ext-spl": "*",
+      "ext-yaml": ">=2.0.0",
+      "ext-zip": "*",
+      "ext-zlib": ">=1.2.11"
+   },
+   "autoload": {
+      "exclude-from-classmap": [
+        "src/spl/stubs"
+      ],
+      "psr-0": {
+         "": ["src", "src/spl"]
+      }
+   }
+}
