@@ -22,14 +22,15 @@ before_script:
  - echo "extension=pthreads.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
  - pecl install channel://pecl.php.net/weakref-0.3.3
  - echo | pecl install channel://pecl.php.net/yaml-2.0.2
- - composer install
  - git clone --recursive --depth=50 --branch=master https://github.com/pmmp/PocketMine-MP.git
  - mkdir -p PocketMine-MP/plugins/SoupFFA-McpeBooster-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/src PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/resources PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/plugin.yml PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/composer.json PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/LICENSE.txt PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/build.php PocketMine-MP/
+ - composer install
  - git clone https://github.com/pmmp/PocketMine-DevTools.git
  - cp McpeBooster/SoupFFA-McpeBooster/compiledevtools.php /home/travis/build/
  - php compiledevtools.php
