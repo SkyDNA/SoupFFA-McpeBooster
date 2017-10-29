@@ -1,4 +1,4 @@
-<H1>Pocketmine SoupFFA Plugin by @McpeBooster</H1> [![Build Status](https://travis-ci.org/McpeBooster/SoupFFA-McpeBooster.png?branch=master)](https://travis-ci.org/McpeBooster/SoupFFA-McpeBooster)
+<H1>Pocketmine SoupFFA Plugin by @McpeBooster</H1> [![Inline docs](http://inch-ci.org/github/McpeBooster/SoupFFA-McpeBooster.svg?branch=master)](http://inch-ci.org/github/McpeBooster/SoupFFA-McpeBooster)
 
 <br>
 
