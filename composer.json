@@ -2,6 +2,7 @@
    "name": "mcpebooster/soupffa-mcpebooster",
    "description": "A PocketMine SoupFFA Plugin by @McpeBooster",
    "type": "project",
+   "license": "GNU-3.0",
    "homepage": "http://McpeBooster.tk",
    "require": {
       "php": ">=7.2",
