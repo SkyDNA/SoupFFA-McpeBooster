@@ -1,14 +1,16 @@
-<H1>Pocketmine SoupFFA Plugin by @McpeBooster</H1> [![Inline docs](http://inch-ci.org/github/McpeBooster/SoupFFA-McpeBooster.svg?branch=master)](http://inch-ci.org/github/McpeBooster/SoupFFA-McpeBooster)
+# Pocketmine SoupFFA Plugin by @McpeBooster  [![Build Status](https://travis-ci.org/McpeBooster/SoupFFA-McpeBooster.svg?branch=master)](https://travis-ci.org/McpeBooster/SoupFFA-McpeBooster)
+
+
 
 <br>
 
-<H1>Explanations</H1>
+# Explanations
 
 SoupFFA is an endless game mode, which is about to kill your opponents. Every player has his inventory full of soup, which will heal you when you eat it.
 
 <br>
 
-<H1>News:</H1>
+# News:
 
 Addet AutoUpdater
 
@@ -24,13 +26,13 @@ Change the language easily in the config.yml
 
 <br>
 
-<H1>Phar:</H1>
+# Phar:
 
 get the latest .phar: http://McpeBooster.tk/plugins
 
 <br>
 
-<H1>How to install:</H1>
+# How to install:
 
 <br>
 
@@ -51,7 +53,7 @@ get the latest .phar: http://McpeBooster.tk/plugins
 
 <br>
 
-<H1>How to get the Vip Kit:</H1>
+# How to get the Vip Kit:
 
 When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
 
@@ -59,7 +61,7 @@ When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
 
 <br>
 
-<H1>YouTube Video:</H1>
+# YouTube Video:
 
 [![Alt text](https://img.youtube.com/vi/iQ-GgxrWYQk/0.jpg)](https://www.youtube.com/watch?v=iQ-GgxrWYQk)
 
@@ -69,7 +71,7 @@ https://youtu.be/iQ-GgxrWYQk
 
 <br>
 
-<H1>Contact details:</H1>
+# Contact details:
 
 Twitter: https://twitter.com/McpeBooster
 
