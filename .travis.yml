@@ -18,7 +18,7 @@ before_script:
  - cp -rf McpeBooster/SoupFFA-McpeBooster/src PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/resources PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/plugin.yml PocketMine-MP/plugins/SoupFFA-src
- - cp -rf McpeBooster/SoupFFA-McpeBooster/LICENSE PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/LICENSE.txt PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/build.php PocketMine-MP/
  - git clone https://github.com/pmmp/PocketMine-DevTools.git
  - cp McpeBooster/SoupFFA-McpeBooster/compiledevtools.php /home/travis/build/
