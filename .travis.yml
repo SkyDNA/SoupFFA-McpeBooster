@@ -1,4 +1,4 @@
-# travis.yml by @SalmonDE
+# travis.yml by @SalmonDE (modified)
 language: php
 
 php:
@@ -10,7 +10,16 @@ branches:
 before_script:
  - cd /home/travis/build/
  - phpenv config-rm xdebug.ini
- - pecl install channel://pecl.php.net/pthreads-3.1.6
+# - pecl install channel://pecl.php.net/pthreads-3.1.6
+ - git clone https://github.com/krakjoe/pthreads.git
+ - cd pthreads
+ - git checkout 6c6b15138c923b69cfa46ee05fc2dd45da587287
+ - phpize
+ - ./configure
+ - make
+ - make install
+ - cd ..
+ - echo "extension=pthreads.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
  - pecl install channel://pecl.php.net/weakref-0.3.3
  - echo | pecl install channel://pecl.php.net/yaml-2.0.2
  - git clone --recursive --depth=50 --branch=master https://github.com/pmmp/PocketMine-MP.git
