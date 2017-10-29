@@ -28,7 +28,7 @@ before_script:
  - cp -rf McpeBooster/SoupFFA-McpeBooster/resources PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/plugin.yml PocketMine-MP/plugins/SoupFFA-src
  - cp -rf McpeBooster/SoupFFA-McpeBooster/LICENSE.txt PocketMine-MP/plugins/SoupFFA-src
- - cp -rf  McpeBooster/SoupFFA-McpeBooster/composer.json /
+ - cp -rf  McpeBooster/SoupFFA-McpeBooster/composer.json PocketMine-MP
  - composer install
  - cp -rf McpeBooster/SoupFFA-McpeBooster/build.php PocketMine-MP/
  - git clone https://github.com/pmmp/PocketMine-DevTools.git
