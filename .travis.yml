@@ -1,9 +1,40 @@
 language: php
-php: ["7.0"]
-sudo: false
-dist: trusty
 
-install:
-- wget -O - https://poggit.pmmp.io/res/travisInstall.sh | bash -s -
+php:
+ - 7.2
+
+branches:
+ - master
+
+before_script:
+ - cd /home/travis/build/
+ - phpenv config-rm xdebug.ini
+ - pecl install channel://pecl.php.net/pthreads-3.1.6
+ - pecl install channel://pecl.php.net/weakref-0.3.3
+ - echo | pecl install channel://pecl.php.net/yaml-2.0.0
+ - git clone --recursive --depth=50 --branch=master https://github.com/pmmp/PocketMine-MP.git
+ - mkdir -p PocketMine-MP/plugins/SoupFFA-McpeBooster-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/src PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/resources PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/plugin.yml PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/LICENSE PocketMine-MP/plugins/SoupFFA-src
+ - cp -rf McpeBooster/SoupFFA-McpeBooster/build.php PocketMine-MP/
+ - git clone https://github.com/pmmp/PocketMine-DevTools.git
+ - cp McpeBooster/SoupFFA-McpeBooster/compiledevtools.php /home/travis/build/
+ - php compiledevtools.php
+ - cd PocketMine-MP/
+
 script:
-- wget -O - https://poggit.pmmp.io/res/travisScript.sh | bash -s - SoupFFA-McpeBooster
+ - php build.php
+
+deploy:
+  provider: releases
+  api_key: "$traviskey"
+  file: "/home/travis/build/PocketMine-MP/plugins/DevTools/SoupFFA-McpeBooster.phar"
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: false
+
+notifications:
+ email: false
