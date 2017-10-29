@@ -1,32 +1,9 @@
-#Travis CI
-
 language: php
-
-dist: trusty
+php: ["7.0"]
 sudo: false
+dist: trusty
 
-php:
- - 7.2
-
-branches:
- - auto-updater
-
-before_script:
- - git clone --recursive https://github.com/pmmp/PocketMine-MP.git
- - pecl install channel://pecl.php.net/pthreads-3.1.6
- - pecl install channel://pecl.php.net/weakref-0.3.3
- - echo | pecl install channel://pecl.php.net/yaml-2.0.0
- - cd PocketMine-MP
- - mkdir plugins
- - cd plugins
- - wget -O DevTools.phar https://poggit.pmmp.io/r/8459/PocketMine-DevTools.phar
- - cd /home/travis/build/McpeBooster/SoupFFA-McpeBooster/
- - cp -rf Travis.php PocketMine-MP/
- - cp -rf / PocketMine-MP/plugins/
- - cd PocketMine-MP
-
+install:
+- wget -O - https://poggit.pmmp.io/res/travisInstall.sh | bash -s -
 script:
- - php Travis.php
- 
-notifications:
- email: false
+- wget -O - https://poggit.pmmp.io/res/travisScript.sh | bash -s - SoupFFA-McpeBooster
