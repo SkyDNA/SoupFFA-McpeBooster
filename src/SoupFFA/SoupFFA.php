@@ -32,7 +32,9 @@ class SoupFFA extends PluginBase implements Listener{
 		$this->getLogger()->info($this->prefix . " Language: ".$lang);
 		
 		//Check for Update
-		$this->checkUpdate();
+		if($this->checkUpdate()){
+			//$this->getServer()->reload();
+		}
 		
 		
 		if($this->getConfig()->get("arena") == "debug123"){
@@ -95,13 +97,60 @@ class SoupFFA extends PluginBase implements Listener{
 				$this->getLogger()->info("§aNew Update available!");
 				$this->getLogger()->info("§7Local Version: §6" . $version);
 				$this->getLogger()->info("§7Newest Version: §6" . $newversion);
-				$this->getLogger()->info("§aUpdate your Plugin by downloading the new source at §7https://github.com/McpeBooster/SoupFFA-McpeBooster/");
-				$this->getLogger()->info("§aor get the newest .phar at §7http://McpeBooster.tk/plugins/");
+				$this->getLogger()->info("§aDownloading Newest Version... §7(" . $newversion . ")");
+				
+				$file = file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/src/SoupFFA/SoupFFA.php", false, stream_context_create($arrContextOptions));
+				if ($file) {
+					$path = dirname(__FILE__);
+					if(is_dir($path)){
+						$this->updateDir(str_replace("src/SoupFFA", "", $path));
+					}else{
+						file_put_contents($path, $file);
+					}
+				}
+				$this->getLogger()->info("§aSuccessfully downloaded Newest Version... §7(" . $newversion . ")");
 				return true;
 			}
 		}
 		
 		return false;
+	}
+	
+	public function updateDir($path){
+		$arrContextOptions = array(
+			"ssl" => array(
+				"verify_peer" => false,
+				"verify_peer_name" => false,
+				),
+			);
+			
+
+		//foreach(scandir($path) as $f) {
+		foreach(glob($path . "*") as $f) {
+			if(!in_array($f, [".", ".."]) && !($f == $path)){
+				
+				if(is_dir($f)){
+					$this->updateDir($f . "/");
+				}else{
+					$url1 = str_replace($this->getServer()->getDataPath(), "", str_replace("plugins", "", $f));
+					/*var_dump("Server: " . $this->getServer()->getDataPath());
+					var_dump("Datei: " . $f);
+					var_dump("New Path: " . $url1);*/
+					$url2 = explode("/", $url1);
+					unset($url2[1]);
+					$url3 = "";
+					foreach($url2 as $u2){
+						if(!($u2 == "")){
+							$url3 = $url3 . "/" . $u2;
+						}
+					}
+					//var_dump($url3);
+					if($d = @file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master" . $url3, false, stream_context_create($arrContextOptions))){
+						file_put_contents($f, $d);
+					}
+				}
+			}
+		}
 	}
 	
 	public function onInteract(PlayerInteractEvent $event){
