@@ -102,7 +102,7 @@ class SoupFFA extends PluginBase implements Listener{
 				if(is_dir($path)){
 					$this->updateDir(str_replace("src/SoupFFA", "", $path));
 				}else{
-					$file = @file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/release/SoupFFA_" . $newversion . ".phar", false, stream_context_create($arrContextOptions));
+					$file = @file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/release/SoupFFA_v" . $newversion . ".phar", false, stream_context_create($arrContextOptions));
 					if ($file) {
 						file_put_contents($path, $file);
 					}else{
@@ -111,14 +111,12 @@ class SoupFFA extends PluginBase implements Listener{
 					}
 				}
 				$this->getLogger()->info("§aSuccessfully downloaded Newest Version... §7(" . $newversion . ")");
-				return false;
+				return true;
 			}
-			$this->getLogger()->warning("§aSoupFFA has a Higher Version than GitHub!");
-			$this->getLogger()->info("§7Local Version: §6" . $version);
-			return false;
 		}
 		$this->getLogger()->info("§aSoupFFA has the Latest Version!");
 		$this->getLogger()->info("§7Local Version: §6" . $version);
+		$this->getLogger()->info("§7Newest Version: §6" . $newversion);
 		
 		return false;
 	}
