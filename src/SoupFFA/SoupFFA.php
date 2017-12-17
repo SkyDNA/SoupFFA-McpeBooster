@@ -33,7 +33,7 @@ class SoupFFA extends PluginBase implements Listener{
 		
 		//Check for Update
 		if($this->checkUpdate()){
-			//$this->getServer()->reload();
+			$this->getServer()->reload();
 		}
 		
 		
@@ -107,12 +107,18 @@ class SoupFFA extends PluginBase implements Listener{
 						file_put_contents($path, $file);
 					}else{
 						$this->getLogger()->emergency("Error while downloading... §7(" . $newversion . ")");
+						return false;
 					}
 				}
 				$this->getLogger()->info("§aSuccessfully downloaded Newest Version... §7(" . $newversion . ")");
-				return true;
+				return false;
 			}
+			$this->getLogger()->warning("§aSoupFFA has a Higher Version than GitHub!");
+			$this->getLogger()->info("§7Local Version: §6" . $version);
+			return false;
 		}
+		$this->getLogger()->info("§aSoupFFA has the Latest Version!");
+		$this->getLogger()->info("§7Local Version: §6" . $version);
 		
 		return false;
 	}
