@@ -98,14 +98,15 @@ class SoupFFA extends PluginBase implements Listener{
 				$this->getLogger()->info("§7Local Version: §6" . $version);
 				$this->getLogger()->info("§7Newest Version: §6" . $newversion);
 				$this->getLogger()->info("§aDownloading Newest Version... §7(" . $newversion . ")");
-				
-				$file = file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/src/SoupFFA/SoupFFA.php", false, stream_context_create($arrContextOptions));
-				if ($file) {
-					$path = dirname(__FILE__);
-					if(is_dir($path)){
-						$this->updateDir(str_replace("src/SoupFFA", "", $path));
-					}else{
+				$path = dirname(__FILE__);
+				if(is_dir($path)){
+					$this->updateDir(str_replace("src/SoupFFA", "", $path));
+				}else{
+					$file = @file_get_contents("https://raw.githubusercontent.com/McpeBooster/SoupFFA-McpeBooster/master/release/SoupFFA_" . $newversion . ".phar", false, stream_context_create($arrContextOptions));
+					if ($file) {
 						file_put_contents($path, $file);
+					}else{
+						$this->getLogger()->emergency("Error while downloading... §7(" . $newversion . ")");
 					}
 				}
 				$this->getLogger()->info("§aSuccessfully downloaded Newest Version... §7(" . $newversion . ")");
