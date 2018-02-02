@@ -12,6 +12,8 @@ SoupFFA is an endless game mode, which is about to kill your opponents. Every pl
 
 # News:
 
+Completely reprogrammed!
+
 Addet AutoUpdater
 
 Addet wiki: https://github.com/McpeBooster/SoupFFA-McpeBooster/wiki
@@ -55,7 +57,7 @@ get the latest .phar: http://McpeBooster.tk/plugins
 
 # How to get the Vip Kit:
 
-When a player has the Permission "soupffa.vip", the player gets a Vip Kit!
+When a player has the Permission, which is selected in the config.yml, the player gets a Vip Kit!
 
 <br>
 
@@ -78,5 +80,7 @@ Twitter: https://twitter.com/McpeBooster
 YouTube: https://youtube.com/McpeBooster
 
 GitHub: https://github.com/McpeBooster
+
+Website: http://McpeBooster.tk
 
 E-Mail: mcpebooster@gmail.com
