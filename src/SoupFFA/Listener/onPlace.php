@@ -8,7 +8,7 @@
 
 namespace SoupFFA\Listener;
 
-
+use SoupFFA\SoupFFA;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\Listener;
 
