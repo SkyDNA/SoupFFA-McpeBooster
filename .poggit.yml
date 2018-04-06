@@ -1,0 +1,7 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/SkyDNA/SoupFFA-McpeBooster
+branches:
+- master
+projects:
+  SoupFFA-McpeBooster:
+    path: ""
+...
